@@ -49,6 +49,9 @@ You can deploy this repository using any platform which supports Next.js Version
 
 The repository requires a single environment variable: `NEXT_PUBLIC_WIX_CLIENT_ID`, which should contain a client ID authorizing access to a Wix project's data.
 
+Optional environment variables:
+- `NEXT_PUBLIC_BUILD_TIME`: Set this to the current timestamp during the build process to display accurate deployment information. Example: `NEXT_PUBLIC_BUILD_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")`
+
 # Learn More
 
 To learn how to customize the template and add more functionality using Wix APIs, see the [Wix JavaScript SDK reference](https://dev.wix.com/api/sdk).
