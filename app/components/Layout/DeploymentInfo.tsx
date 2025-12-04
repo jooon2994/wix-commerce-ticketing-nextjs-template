@@ -9,8 +9,15 @@ export const DeploymentInfo = () => {
 
   useEffect(() => {
     fetch('/api/deployment-info')
-      .then((res) => res.json())
-      .then((data) => setDeploymentInfo(data))
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch deployment info');
+        return res.json();
+      })
+      .then((data) => {
+        if (data && typeof data.buildTimestamp === 'string') {
+          setDeploymentInfo(data);
+        }
+      })
       .catch(() => setDeploymentInfo(null));
   }, []);
 
@@ -19,6 +26,12 @@ export const DeploymentInfo = () => {
   }
 
   const buildDate = new Date(deploymentInfo.buildTimestamp);
+
+  // Check if date is valid
+  if (isNaN(buildDate.getTime())) {
+    return null;
+  }
+
   const formattedDate = buildDate.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
